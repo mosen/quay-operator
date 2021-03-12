@@ -1,0 +1,12 @@
+# Clair component adds Clair v4 security scanner and its database.
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+resources:
+  - ./postgres.persistentvolumeclaim.yaml
+  - ./postgres.deployment.yaml
+  - ./postgres.service.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  # NOTE: `postgres-clair-config-secret` fields generated in `kustomize.go`.
+  - name: postgres-clair-config-secret
