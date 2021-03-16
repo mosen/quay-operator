@@ -250,6 +250,8 @@ func fieldGroupNameFor(component string) string {
 // componentConfigFilesFor returns specific config files for managed components of a Quay registry.
 func componentConfigFilesFor(component string, quay *v1.QuayRegistry, configFiles map[string][]byte) (map[string][]byte, error) {
 	switch component {
+	case "postgres-clair":
+		fallthrough
 	case "postgres":
 		dbConfig, ok := configFiles["postgres.config.yaml"]
 		if !ok {

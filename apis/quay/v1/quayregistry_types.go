@@ -43,6 +43,7 @@ func CanUpgrade(fromVersion QuayVersion) bool {
 var allComponents = []string{
 	"postgres",
 	"clair",
+	"clair-postgres",
 	"redis",
 	"horizontalpodautoscaler",
 	"objectstorage",

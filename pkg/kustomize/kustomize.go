@@ -52,16 +52,18 @@ const (
 // to use. If set, returns a Kustomize image override for the given component.
 func componentImageFor(component string) types.Image {
 	envVarFor := map[string]string{
-		"base":     componentImagePrefix + "QUAY",
-		"clair":    componentImagePrefix + "CLAIR",
-		"redis":    componentImagePrefix + "REDIS",
-		"postgres": componentImagePrefix + "POSTGRES",
+		"base":           componentImagePrefix + "QUAY",
+		"clair":          componentImagePrefix + "CLAIR",
+		"redis":          componentImagePrefix + "REDIS",
+		"postgres":       componentImagePrefix + "POSTGRES",
+		"clair-postgres": componentImagePrefix + "POSTGRES",
 	}
 	defaultImagesFor := map[string]string{
 		"base":     "quay.io/projectquay/quay",
 		"clair":    "quay.io/projectquay/clair",
 		"redis":    "centos/redis-32-centos7",
 		"postgres": "centos/postgresql-10-centos7",
+		"clair-postgres": "centos/postgresql-10-centos7",
 	}
 
 	imageOverride := types.Image{

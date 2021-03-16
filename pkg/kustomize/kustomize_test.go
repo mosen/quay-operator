@@ -42,6 +42,7 @@ var kustomizationForTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: true},
 					{Kind: "objectstorage", Managed: true},
 					{Kind: "mirror", Managed: true},
@@ -58,6 +59,7 @@ var kustomizationForTests = []struct {
 			Components: []string{
 				"../components/postgres",
 				"../components/clair",
+				"../components/clair-postgres",
 				"../components/redis",
 				"../components/objectstorage",
 				"../components/mirror",
@@ -73,6 +75,7 @@ var kustomizationForTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: true},
 				},
 			},
@@ -87,11 +90,13 @@ var kustomizationForTests = []struct {
 			Components: []string{
 				"../components/postgres",
 				"../components/clair",
+				"../components/clair-postgres",
 				"../components/redis",
 			},
 			Images: []types.Image{
 				{Name: "quay.io/projectquay/quay", NewName: "quay", Digest: "sha256:abc123"},
 				{Name: "quay.io/projectquay/clair", NewName: "clair", Digest: "sha256:abc123"},
+				{Name: "centos/postgresql-10-centos7", NewName: "clair-postgres", Digest: "sha256:abc123"},
 				{Name: "centos/redis-32-centos7", NewName: "redis", Digest: "sha256:abc123"},
 				{Name: "centos/postgresql-10-centos7", NewName: "postgres", Digest: "sha256:abc123"},
 			},
@@ -184,6 +189,8 @@ var quayComponents = map[string][]runtime.Object{
 		&corev1.Secret{ObjectMeta: metav1.ObjectMeta{Name: "clair-config-secret"}},
 		&appsv1.Deployment{ObjectMeta: metav1.ObjectMeta{Name: "clair-app"}},
 		&corev1.Service{ObjectMeta: metav1.ObjectMeta{Name: "clair-app"}},
+	},
+	"clair-postgres": {
 		&appsv1.Deployment{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
 		&corev1.PersistentVolumeClaim{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
 		&corev1.Service{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
@@ -235,6 +242,7 @@ var inflateTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: true},
 					{Kind: "objectstorage", Managed: true},
 					{Kind: "mirror", Managed: true},
@@ -249,7 +257,7 @@ var inflateTests = []struct {
 				"config.yaml": encode(map[string]interface{}{"SERVER_HOSTNAME": "quay.io"}),
 			},
 		},
-		withComponents([]string{"base", "clair", "postgres", "redis", "objectstorage", "mirror"}),
+		withComponents([]string{"base", "clair", "postgres", "clair-postgres", "redis", "objectstorage", "mirror"}),
 		nil,
 	},
 	{
@@ -259,6 +267,7 @@ var inflateTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: false},
 					{Kind: "clair", Managed: false},
+					{Kind: "clair-postgres", Managed: false},
 					{Kind: "redis", Managed: false},
 					{Kind: "objectstorage", Managed: false},
 					{Kind: "mirror", Managed: false},
@@ -281,6 +290,7 @@ var inflateTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: false},
 					{Kind: "objectstorage", Managed: false},
 					{Kind: "mirror", Managed: true},
@@ -303,6 +313,7 @@ var inflateTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: true},
 					{Kind: "objectstorage", Managed: true},
 					{Kind: "mirror", Managed: true},
@@ -330,6 +341,7 @@ var inflateTests = []struct {
 				Components: []v1.Component{
 					{Kind: "postgres", Managed: true},
 					{Kind: "clair", Managed: true},
+					{Kind: "clair-postgres", Managed: true},
 					{Kind: "redis", Managed: true},
 					{Kind: "objectstorage", Managed: true},
 					{Kind: "mirror", Managed: true},
