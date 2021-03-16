@@ -75,6 +75,8 @@ func FieldGroupFor(ctx *quaycontext.QuayRegistryContext, component string, quay 
 		}
 
 		return fieldGroup, nil
+	case "clair-postgres":
+		fallthrough // Assume that we will use the same RDBMS for clair, also.
 	case "postgres":
 		fieldGroup, err := database.NewDatabaseFieldGroup(map[string]interface{}{})
 		if err != nil {
@@ -196,6 +198,8 @@ func ContainsComponentConfig(fullConfig map[string]interface{}, component string
 		fields = (&securityscanner.SecurityScannerFieldGroup{}).Fields()
 	case "postgres":
 		fields = (&database.DatabaseFieldGroup{}).Fields()
+	case "clair-postgres":
+		fields = (&database.DatabaseFieldGroup{}).Fields()
 	case "redis":
 		fields = (&redis.RedisFieldGroup{}).Fields()
 	case "objectstorage":
@@ -232,6 +236,8 @@ func fieldGroupNameFor(component string) string {
 		return "SecurityScanner"
 	case "postgres":
 		return "Database"
+	case "clair-postgres":
+		return "Database"
 	case "redis":
 		return "Redis"
 	case "objectstorage":
@@ -250,7 +256,7 @@ func fieldGroupNameFor(component string) string {
 // componentConfigFilesFor returns specific config files for managed components of a Quay registry.
 func componentConfigFilesFor(component string, quay *v1.QuayRegistry, configFiles map[string][]byte) (map[string][]byte, error) {
 	switch component {
-	case "postgres-clair":
+	case "clair-postgres":
 		fallthrough
 	case "postgres":
 		dbConfig, ok := configFiles["postgres.config.yaml"]

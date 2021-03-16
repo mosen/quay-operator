@@ -8,5 +8,5 @@ resources:
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:
-  # NOTE: `postgres-clair-config-secret` fields generated in `kustomize.go`.
-  - name: postgres-clair-config-secret
+  # NOTE: `clair-postgres-config-secret` fields generated in `kustomize.go`.
+  - name: clair-postgres-config-secret

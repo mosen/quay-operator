@@ -17,11 +17,11 @@ spec:
         quay-component: clair-postgres
     spec:
       volumes:
-        - name: postgres-data
+        - name: clair-postgres-data
           persistentVolumeClaim:
             claimName: clair-postgres
       containers:
-        - name: postgres
+        - name: clair-postgres
           image: centos/postgresql-10-centos7@sha256:de1560cb35e5ec643e7b3a772ebaac8e3a7a2a8e8271d9e91ff023539b4dfb33
           imagePullPolicy: "IfNotPresent"
           ports:
@@ -50,5 +50,5 @@ spec:
                 - /usr/libexec/check-container
                 - --live
           volumeMounts:
-            - name: postgres-data
+            - name: clair-postgres-data
               mountPath: /var/lib/pgsql/data

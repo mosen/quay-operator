@@ -191,6 +191,7 @@ var quayComponents = map[string][]runtime.Object{
 		&corev1.Service{ObjectMeta: metav1.ObjectMeta{Name: "clair-app"}},
 	},
 	"clair-postgres": {
+		&corev1.Secret{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres-config-secret"}},
 		&appsv1.Deployment{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
 		&corev1.PersistentVolumeClaim{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
 		&corev1.Service{ObjectMeta: metav1.ObjectMeta{Name: "clair-postgres"}},
@@ -303,7 +304,7 @@ var inflateTests = []struct {
 				"config.yaml": encode(map[string]interface{}{"SERVER_HOSTNAME": "quay.io"}),
 			},
 		},
-		withComponents([]string{"base", "postgres", "clair", "mirror"}),
+		withComponents([]string{"base", "postgres", "clair", "clair-postgres", "mirror"}),
 		nil,
 	},
 	{
@@ -331,7 +332,7 @@ var inflateTests = []struct {
 				"config.yaml": encode(map[string]interface{}{"SERVER_HOSTNAME": "quay.io"}),
 			},
 		},
-		withComponents([]string{"base", "clair", "postgres", "redis", "objectstorage", "mirror"}),
+		withComponents([]string{"base", "clair", "clair-postgres", "postgres", "redis", "objectstorage", "mirror"}),
 		nil,
 	},
 	{
@@ -359,7 +360,7 @@ var inflateTests = []struct {
 				"config.yaml": encode(map[string]interface{}{"SERVER_HOSTNAME": "quay.io", "DATABASE_SECRET_KEY": "abc123"}),
 			},
 		},
-		withComponents([]string{"base", "clair", "postgres", "redis", "objectstorage", "mirror"}),
+		withComponents([]string{"base", "clair", "postgres", "clair-postgres", "redis", "objectstorage", "mirror"}),
 		nil,
 	},
 }

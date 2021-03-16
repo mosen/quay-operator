@@ -56,13 +56,13 @@ func componentImageFor(component string) types.Image {
 		"clair":          componentImagePrefix + "CLAIR",
 		"redis":          componentImagePrefix + "REDIS",
 		"postgres":       componentImagePrefix + "POSTGRES",
-		"clair-postgres": componentImagePrefix + "POSTGRES",
+		"clair-postgres": componentImagePrefix + "CLAIR-POSTGRES",
 	}
 	defaultImagesFor := map[string]string{
-		"base":     "quay.io/projectquay/quay",
-		"clair":    "quay.io/projectquay/clair",
-		"redis":    "centos/redis-32-centos7",
-		"postgres": "centos/postgresql-10-centos7",
+		"base":           "quay.io/projectquay/quay",
+		"clair":          "quay.io/projectquay/clair",
+		"redis":          "centos/redis-32-centos7",
+		"postgres":       "centos/postgresql-10-centos7",
 		"clair-postgres": "centos/postgresql-10-centos7",
 	}
 
