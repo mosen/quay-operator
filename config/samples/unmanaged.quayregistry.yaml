@@ -11,5 +11,7 @@ spec:
       managed: false
     - kind: clair
       managed: false
+    - kind: clair-postgres
+      managed: false
     - kind: objectstorage 
       managed: false
